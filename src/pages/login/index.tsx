@@ -5,28 +5,28 @@ import './index.scss';
 export default () => {
   const handleLogin = (e) => {
     console.log(e)
-    // Taro.login({
-    //   success: function (res) {
-    //     console.log('res: ', res);
-    //     if (res.code) {
-    //       //发起网络请求
-    //       console.log('发起网络请求');
-    //       // Taro.request({
-    //       //   url: 'https://test.com/onLogin',
-    //       //   data: {
-    //       //     code: res.code
-    //       //   }
-    //       // })
-    //     } else {
-    //       console.log('登录失败！' + res.errMsg);
-    //     }
-    //   },
-    // });
+    Taro.login({
+      success: function (res) {
+        console.log('res: ', res);
+        if (res.code) {
+          //发起网络请求
+          console.log('发起网络请求');
+          // Taro.request({
+          //   url: 'https://test.com/onLogin',
+          //   data: {
+          //     code: res.code
+          //   }
+          // })
+        } else {
+          console.log('登录失败！' + res.errMsg);
+        }
+      },
+    });
   };
 
   const handleGetInfo = (e) => {
     console.log(e)
-    return
+    
     Taro.getUserInfo({
       success: function (res) {
         console.log('getUserInfo: ', res)
@@ -48,7 +48,7 @@ export default () => {
           用户一键登录
         </Button>
       </div>
-      <div className="index">
+      {/* <div className="index">
         <Button type="primary" openType='getUserInfo' className="btn" onGetUserInfo={handleGetInfo}>
           获取用户信息
         </Button>
@@ -58,7 +58,7 @@ export default () => {
       </div>
       <div className="index">
         <Button className='btn' openType='share'>分享给好友</Button>
-      </div>
+      </div> */}
     </div>
   );
 };

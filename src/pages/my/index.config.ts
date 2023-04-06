@@ -1,3 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '我的'
+  navigationBarTitleText: '',
+  navigationStyle: "custom", // 不再显示 navigationBar
 })

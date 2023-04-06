@@ -1,13 +1,8 @@
 import { Component } from 'react'
+import 'windi.css';
 import { ConfigProvider } from '@nutui/nutui-react-taro';
-
 import './app.scss'
 
-const darkTheme = {
-  nutuiBrandColor: 'green',
-  nutuiBrandColorStart: 'green',
-  nutuiBrandColorEnd: 'green',
-}
 
 class App extends Component<any, any> {
   componentDidMount() {
