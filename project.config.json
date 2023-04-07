@@ -11,5 +11,7 @@
     "postcss": false,
     "minified": false
   },
-  "compileType": "miniprogram"
+  "compileType": "miniprogram",
+  "ignoreDevUnusedFiles": false,
+  "ignoreUploadUnusedFiles": false
 }

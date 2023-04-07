@@ -1,35 +1,41 @@
-import { Button } from '@nutui/nutui-react-taro';
+// import { Button } from '@nutui/nutui-react-taro';
 import Taro from '@tarojs/taro';
+import { Button } from '@tarojs/components';
 import './index.scss';
+import Api from '@/api';
+import { setToken } from '@/utils'
 
 export default () => {
-  const handleLogin = (e) => {
-    console.log(e)
-    Taro.login({
-      success: function (res) {
-        console.log('res: ', res);
-        if (res.code) {
-          //发起网络请求
-          console.log('发起网络请求');
-          // Taro.request({
-          //   url: 'https://test.com/onLogin',
-          //   data: {
-          //     code: res.code
-          //   }
-          // })
-        } else {
-          console.log('登录失败！' + res.errMsg);
-        }
-      },
-    });
+  const onGetPhoneNumber = ({ detail }) => {
+    if (detail.errMsg === 'getPhoneNumber:ok') {
+      Taro.login({
+        success: function (res) {
+          if (res.code) {
+            //发起网络请求
+            const params = {
+              encryptedData: detail.encryptedData,
+              iv: detail.iv,
+              code: res.code,
+              loading: true,
+            };
+            Api.loginByPhoneApi(params).then((res) => {
+              setToken(res.data)
+              Taro.navigateBack()
+            });
+          } else {
+            console.log('登录失败！' + res.errMsg);
+          }
+        },
+      });
+    }
   };
 
   const handleGetInfo = (e) => {
-    console.log(e)
-    
+    console.log(e);
+
     Taro.getUserInfo({
       success: function (res) {
-        console.log('getUserInfo: ', res)
+        console.log('getUserInfo: ', res);
         var userInfo = res.userInfo;
         var nickName = userInfo.nickName;
         var avatarUrl = userInfo.avatarUrl;
@@ -44,7 +50,12 @@ export default () => {
   return (
     <div className="nutui-react-demo">
       <div className="index">
-        <Button type="primary" openType='getPhoneNumber' className="btn" onGetPhoneNumber={handleLogin}>
+        <Button
+          type="primary"
+          openType="getPhoneNumber"
+          className="btn"
+          onGetPhoneNumber={onGetPhoneNumber}
+        >
           用户一键登录
         </Button>
       </div>

@@ -43,7 +43,7 @@ const getVersion = () => {
   // @ts-ignore
   switch (__wxConfig.envVersion) {
     case 'develop':
-      return 'http://develop.gavinpeng.club'
+      return 'http://121.43.151.44'
 
     case 'trial':
       return 'http://trial.gavinpeng.club'
@@ -52,7 +52,7 @@ const getVersion = () => {
       return 'http://release.gavinpeng.club'
 
     default:
-      return 'http://develop.gavinpeng.club'
+      return 'http://121.43.151.44'
   }
 }
 
@@ -61,7 +61,7 @@ class Request {
   baseOptions(options: RequestProps.Options) {
     let { url, method, data } = options
     // 过滤 扩展属性
-    let { loading, loadingTitle, contentType, openErrTips, ...rest } = data
+    let { loading, loadingTitle, contentType, openErrTips, ...rest } = data || {}
 
     if (loading) Taro.showLoading({ title: loadingTitle || '加载中...', mask: true })
     const requestParams: RequestProps.requestParams = {
@@ -83,11 +83,11 @@ class Request {
     return Taro.request(requestParams)
   }
 
-  get(url: string, data: any) {
+  get(url: string, data?: any) {
     return this.baseOptions({ url, method: 'GET', data })
   }
 
-  post(url: string, data: any) {
+  post(url: string, data?: any) {
     return this.baseOptions({ url, method: 'POST', data })
   }
 }

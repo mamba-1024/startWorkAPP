@@ -3,16 +3,25 @@ import request from '@/service'
 
 /**
 * 登录
-* @param params
+* '/wechat/login'
 * @returns
 */
-export const loginApi = (url: string, data: any) => {
-  return request.post(url, data)
+export const loginApi = (data: any) => {
+  return request.post('/wechat/login', data)
+}
+/**
+* 一键获取手机号登录
+* /wechat/getPhoneNum
+* @returns
+*/
+export const loginByPhoneApi = (data: any) => {
+  return request.post('/wechat/getPhoneNum', data)
 }
 
 /**
  * 获取用户信息
+ * /employee/getUserInfo
  */
-export const getUserInfoApi = (url: string, data?: any) => {
-  return request.post(url, data)
+export const getUserInfoApi = () => {
+  return request.get('/employee/getUserInfo')
 }
