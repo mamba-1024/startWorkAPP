@@ -19,16 +19,16 @@ export default () => {
   });
 
   return (
-    <div>
-      <div className="flex flex-row justify-between items-center ml-10px mr-10px border-0 border-b-1 border-b-gray-300 border-solid h-50px" >
+    <div className='pt-10px'>
+      <div className="flex flex-row justify-between items-center ml-10px mr-10px border-0 border-b-1 border-b-gray-200 border-solid h-50px" >
         <span>头像</span>
         <Avatar size="normal" icon={userInfo?.avatarUrl || 'my'} />
       </div>
-      <div className="flex flex-row justify-between items-center ml-10px mr-10px border-0 border-b-1 border-b-gray-300 border-solid h-50px">
+      <div className="flex flex-row justify-between items-center ml-10px mr-10px border-0 border-b-1 border-b-gray-200 border-solid h-50px">
         <span>姓名</span>
         <span>{userInfo?.nickname}</span>
       </div>
-      <div className="flex flex-row justify-between items-center ml-10px mr-10px border-0 border-b-1 border-b-gray-300 border-solid h-50px">
+      <div className="flex flex-row justify-between items-center ml-10px mr-10px border-0 border-b-1 border-b-gray-200 border-solid h-50px">
         <span>手机号</span>
         <span>{userInfo?.phoneNumber}</span>
       </div>

@@ -1,17 +1,37 @@
-import { useDidShow } from '@tarojs/taro';
+import Taro, { useDidShow } from '@tarojs/taro';
+import Api from '@/api';
+import { Row, Col } from '@nutui/nutui-react-taro';
+import { useState } from 'react';
 
+
+interface LevelProps {
+  levelList: { name: string; desc: string }[];
+  remark: string;
+}
 
 export default () => {
+  const params: any = Taro.getCurrentInstance().router?.params || {}
+  const [levelInfo, setLevelInfo] = useState<LevelProps>({ levelList: [], remark: '' });
+
+  useDidShow(() => {
+    Api.getLevelInfo({ loading: true }).then((res) => {
+      console.log(res);
+      setLevelInfo(res.data);
+    });
+  });
 
   return (
     <div>
-      <div className='w-3/4'>0</div>
-      <div className='w-3/4'>1</div>
-      <div className='w-3/4'>2</div>
-      <div className='w-3/4'>3</div>
-      <span>
-        备注：到达3星可以获得年终奖，积分每年会清零，次年重新计算
-      </span>
+      <div>
+      {levelInfo?.levelList.map((ele) => (
+        <div className={`w-3/4 mx-auto text-center my-30px ${ele.name.includes(params.level) ? 'bg-yellow-200' : 'bg-green-200'} rounded-xl py-15px`}>
+          <span className='mb-6px'>{ele.name}</span>
+          <span>{ele.desc}</span>
+        </div>
+      ))}
+      </div>
+
+      <span className='px-6px'>备注：{levelInfo?.remark}</span>
     </div>
-  )
-}
+  );
+};

@@ -37,9 +37,23 @@ export default () => {
     }
   };
 
+  const handleLevel = () => {
+    if(userInfo) {
+      Taro.navigateTo({
+        url: `/pages/level/index?level=${userInfo?.level}`
+      })
+    }
+  }
+
+  const handleVerify = () => {
+    Taro.navigateTo({
+      url: `/pages/verify/index?verified=${userInfo?.verified}`
+    })
+  }
+
   return (
-    <div>
-      <div className="h-150px pt-60px bg-gradient-to-b from-red-500 to-red-50">
+    <div className='bg-slate-50'>
+      <div className="h-100px pt-60px bg-gradient-to-b from-green-400 to-green-50">
         <div className="flex flex-row items-center pl-12px mt-10px">
           <div onClick={handleClick}>
             <Avatar size="large" icon={userInfo?.avatarUrl || 'my'} />
@@ -55,18 +69,18 @@ export default () => {
           </div>
         </div>
       </div>
-      <Grid columnNum={2} className="w-3/4 mx-auto mt-10px rounded-md">
+      <Grid columnNum={2} className="w-3/4 mx-auto mt-20px rounded-xl overflow-hidden">
         <GridItem>
           <span>{userInfo?.checkInTime}</span>
           <span>本月打卡（时）</span>
         </GridItem>
-        <GridItem>
+        <GridItem onClick={handleLevel}>
           <span>{userInfo?.accumulatedPoints}</span>
           <span>累计积分</span>
         </GridItem>
       </Grid>
-      <Grid columnNum={2} className="w-3/4 mx-auto mt-10px rounded-md">
-        <GridItem>
+      <Grid columnNum={2} className="w-3/4 mx-auto mt-10px rounded-xl overflow-hidden">
+        <GridItem onClick={handleVerify}>
           <span>
             <Icon name="Check"></Icon>
           </span>

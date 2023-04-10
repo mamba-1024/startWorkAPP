@@ -1,4 +1,11 @@
 page {
   font-size: 14px;
   // color: #808080;
+  background-color: rgb(248 250 252);
+
+  // 去掉按钮右侧黑边
+  .nut-button--primary {
+    border: 0px solid transparent;
+  }
+
 }
