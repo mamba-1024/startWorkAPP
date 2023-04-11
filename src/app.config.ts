@@ -2,7 +2,7 @@ export default defineAppConfig({
   pages: [
     'pages/index/index',
     'pages/my/index',
-    'pages/company/index',
+    'pages/attendance/index',
     'pages/info/index',
     'pages/login/index',
     'pages/level/index',
@@ -26,10 +26,10 @@ export default defineAppConfig({
         selectedIconPath: './assets/image/home-bar-selected2.png'
       },
       {
-        pagePath: 'pages/company/index',
-        text: '公司',
-        iconPath: './assets/image/company-bar.png',
-        selectedIconPath: './assets/image/company-bar-selected2.png'
+        pagePath: 'pages/attendance/index',
+        text: '打卡',
+        iconPath: './assets/image/attendance-bar.png',
+        selectedIconPath: './assets/image/attendance-bar-selected2.png'
       },
       {
         pagePath: 'pages/my/index',

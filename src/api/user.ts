@@ -41,3 +41,11 @@ export const getLevelInfo = (data?: any) => {
 export const getUserDetail = (data?:any) => {
   return request.get('/employee/userDetail', data)
 }
+
+/**
+ * 实名认证
+ * /employee/verifyUser
+ */
+export const postVerifyUser = (data: any) => {
+  return request.post('/employee/verifyUser', data)
+}

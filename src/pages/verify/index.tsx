@@ -31,8 +31,8 @@ const App = () => {
   const [detailInfo, setDetailInfo] = useState({})
 
   useDidShow(() => {
-    console.log('verified: ', verified);
-    if (verified) {
+    console.log('verified: ', typeof verified);
+    if (verified === 'true') {
       Api.getUserDetail({ loading: true }).then((res) => {
         console.log('getUserDetail: ', res);
         setDetailInfo(res.data)
@@ -52,18 +52,23 @@ const App = () => {
   };
 
   const handleSubmit = () => {
-    if (Object.values(state).some((val) => !val)) {
-      Taro.showToast({
-        title: '请完善信息',
-        icon: 'error',
-      });
-    }
+    // if (Object.values(state).some((val) => !val)) {
+    //   Taro.showToast({
+    //     title: '请完善信息',
+    //     icon: 'error',
+    //   });
+    //   return
+    // }
+    Api.postVerifyUser(state).then(res => {
+      console.log('res: ', res)
+      Taro.navigateBack()
+    })
   };
 
-  return verified ? (
+  return verified === 'true' ? (
     <div className="bg-white mt-10px">
       {Object.keys(details).map((ele) => (
-        <div key={ele} className="flex flex-row justify-between items-center ml-10px mr-10px border-0 border-b-1 border-b-gray-200 border-solid h-50px">
+        <div key={ele} className="flex flex-row justify-between items-center ml-10px mr-10px border-0 border-b-1 border-b-gray-200 border-solid h-50px px-10px">
           <span>{details[ele]}</span>
           <span>{mapping[ele] || detailInfo?.[ele]}</span>
         </div>
