@@ -47,8 +47,8 @@ export default () => {
 
   const handleVerify = () => {
     Taro.navigateTo({
-      // url: `/pages/verify/index?verified=${userInfo?.verified}`
-      url: `/pages/verify/index?verified=${false}`
+      url: `/pages/verify/index?verified=${userInfo?.verified}`
+      // url: `/pages/verify/index?verified=${false}`
     })
   }
 

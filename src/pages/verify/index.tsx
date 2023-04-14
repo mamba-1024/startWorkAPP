@@ -31,7 +31,7 @@ const App = () => {
   const [detailInfo, setDetailInfo] = useState({})
 
   useDidShow(() => {
-    console.log('verified: ', typeof verified);
+    console.log('verified: ', verified);
     if (verified === 'true') {
       Api.getUserDetail({ loading: true }).then((res) => {
         console.log('getUserDetail: ', res);
