@@ -1,12 +1,36 @@
 export default defineAppConfig({
+  lazyCodeLoading: 'requiredComponents',
   pages: [
-    'pages/index/index',
-    'pages/my/index',
-    'pages/attendance/index',
-    'pages/info/index',
-    'pages/login/index',
-    'pages/level/index',
-    'pages/verify/index',
+    'pages/tabBar/home/index',
+    'pages/tabBar/attendance/index',
+    'pages/tabBar/my/index',
+    'pages/login/index'
+  ],
+  subPackages: [
+    {
+      root: 'pages/home/',
+      pages: [
+        'products/index',
+        'companyNews/index',
+        'aboutUs/index',
+        'productsDetail/index'
+      ],
+    },
+    // {
+    //   root: 'pages/attendance/',
+    //   pages: [
+    //     
+    //   ],
+    // },
+    {
+      root: 'pages/my/',
+      pages: [
+        'level/index',
+        'info/index',
+        'verify/index',
+        'attendanceRecord/index',
+      ],
+    },
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -20,19 +44,19 @@ export default defineAppConfig({
     backgroundColor: '#fff',
     list: [
       {
-        pagePath: 'pages/index/index',
+        pagePath: 'pages/tabBar/home/index',
         text: '首页',
         iconPath: './assets/image/home-bar.png',
         selectedIconPath: './assets/image/home-bar-selected2.png'
       },
       {
-        pagePath: 'pages/attendance/index',
+        pagePath: 'pages/tabBar/attendance/index',
         text: '打卡',
-        iconPath: './assets/image/attendance-bar.png',
-        selectedIconPath: './assets/image/attendance-bar-selected2.png'
+        iconPath: './assets/image/attendance-bar3.png',
+        selectedIconPath: './assets/image/attendance-bar-selected3.png'
       },
       {
-        pagePath: 'pages/my/index',
+        pagePath: 'pages/tabBar/my/index',
         text: '我的',
         iconPath: './assets/image/my-bar.png',
         selectedIconPath: './assets/image/my-bar-selected2.png'

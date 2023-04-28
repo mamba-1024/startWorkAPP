@@ -39,23 +39,22 @@ declare namespace RequestProps {
 * 支持扩展 - 思路 可通过 process.env.NODE_ENV 判断当前打包是 生产模式或工厂模式 进而判断 适合多环境 dev -> beta -> uat -> pro
 * @returns 域名
 */
-const getVersion = () => {
+export const getVersion = () => {
   // @ts-ignore
   switch (__wxConfig.envVersion) {
     case 'develop':
-      return 'http://121.43.151.44'
+      return 'https://hznanf.com'
 
     case 'trial':
-      return 'http://trial.gavinpeng.club'
+      return 'https://hznanf.com'
 
     case 'release':
-      return 'http://release.gavinpeng.club'
+      return 'https://hznanf.com'
 
     default:
-      return 'http://121.43.151.44'
+      return 'https://hznanf.com'
   }
 }
-
 
 class Request {
   baseOptions(options: RequestProps.Options) {
@@ -64,6 +63,7 @@ class Request {
     let { loading, loadingTitle, contentType, openErrTips, ...rest } = data || {}
 
     if (loading) Taro.showLoading({ title: loadingTitle || '加载中...', mask: true })
+
     const requestParams: RequestProps.requestParams = {
       url: getVersion() + url,
       method,
@@ -78,6 +78,7 @@ class Request {
       },
       // 请求是否带 loading， 传递到 请求响应拦截器 清除 loading 
       loading,
+      // 请求出错的时候开启错误提示
       openErrTips
     }
     return Taro.request(requestParams)

@@ -1,33 +1,37 @@
 import Taro from '@tarojs/taro'
 import { HTTP_STATUS } from './status'
+import { removeToken } from '@/utils/index'
 
-const customInterceptor = (chain:any) => {
+const customInterceptor = (chain: any) => {
 
     const requestParams = chain.requestParams
 
-    return chain.proceed(requestParams).then((res:any) => {
+    return chain.proceed(requestParams).then((res: any) => {
         // 清除 loading
-        if(requestParams.loading) Taro.hideLoading()
-        switch(res.statusCode) {
+        if (requestParams.loading) Taro.hideLoading()
+        switch (res.statusCode) {
             case HTTP_STATUS.SUCCESS:
                 const result = res.data
-                if(res.data.code === 200) {
+                if (res.data.code === 200) {
                     // 接口调通且无异常赋予success标识
                     result.success = true
+                    return result
                 } else {
                     // 请求接口错误提示，可通过参数中加入 openErrTips: false 关闭
-                    if(requestParams.openErrTips && result.msg) Taro.showToast({ title: result.msg, icon: 'none' })
+                    // if (requestParams.openErrTips && result.message) Taro.showToast({ title: result.message, icon: 'none' })
+                    if (result.message) Taro.showToast({ title: result.message, icon: 'none' })
                     // 登录过期或未登录 需要与后端共同定义
-                    if(result.code === 210 || result.code === 220) {
+                    if (result.code === 401) {
                         // 跳转登陆 清空用户信息等 处理
-                        // cartStroe.setStatus(false)
-                        // cartStroe.setUser({})
-                        Taro.showToast({ title: (result.code === 210 ? '未登录，请先登陆' : '登录信息失效，请重新登陆' ), icon: 'none' })
+                        removeToken();
+
+                        Taro.showToast({ title: '未登录，请先登陆', icon: 'none' })
                         Taro.navigateTo({ url: '/pages/login/index' })
-                        return Promise.reject(result)
                     }
+                    // result.success = false
+                    // 其它错误
+                    return Promise.reject(result)
                 }
-                return result
 
             case HTTP_STATUS.CREATED:
                 return Promise.reject('请求成功并且服务器创建了新的资源')
@@ -38,8 +42,13 @@ const customInterceptor = (chain:any) => {
             case HTTP_STATUS.CLIENT_ERROR:
                 return Promise.reject('服务器不理解请求的语法')
 
-            case HTTP_STATUS.AUTHENTICATE:
-                return Promise.reject('请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应')
+            case HTTP_STATUS.AUTHENTICATE: // 401
+                Taro.showToast({ title: '未登录，请先登陆', icon: 'none', duration: 1500 }).then(() => {
+                    setTimeout(() => {
+                        Taro.navigateTo({ url: '/pages/login/index' })
+                    }, 1500)
+                })
+                return Promise.reject('请求要求身份验证。')
 
             case HTTP_STATUS.FORBIDDEN:
                 return Promise.reject('服务器拒绝请求')
@@ -62,7 +71,7 @@ const customInterceptor = (chain:any) => {
             default:
                 console.log('请开发者检查请求拦截未匹配到错误,返回statusCode :>> ', res.statusCode)
                 break
-            
+
         }
     })
 }

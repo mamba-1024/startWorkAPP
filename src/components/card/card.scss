@@ -1,0 +1,38 @@
+.card-custom {
+  .nut-card .nut-card__left {
+    height: 70px;
+
+    .h5-img {
+      width: 106px;
+      height: 68px;
+    }
+  }
+
+  .nut-card .nut-card__right .nut-card__right__price,
+  .nut-card .nut-card__right .nut-card__right__other {
+    display: none;
+  }
+
+  .desc {
+    color: #999;
+    margin-top: 4px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow: hidden;
+    word-break: break-all;
+  }
+}
+
+.card-custom-max {
+  .nut-card .nut-card__left {
+    height: 102px;
+    width: 102px;
+    .h5-img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}

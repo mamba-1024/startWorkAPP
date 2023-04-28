@@ -49,3 +49,20 @@ export const getUserDetail = (data?:any) => {
 export const postVerifyUser = (data: any) => {
   return request.post('/employee/verifyUser', data)
 }
+
+/**
+ * 更新员工信息，头像昵称
+ * /employee/update
+ */
+export const postUpdateUser = (data: any) => {
+  return request.post('/employee/update', data)
+}
+
+/**
+ * 上传
+ * /upload
+ */
+export const postUpload = (data: any) => {
+  return request.post('/upload', data)
+}
+

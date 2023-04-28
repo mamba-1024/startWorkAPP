@@ -5,8 +5,8 @@ import Api from '@/api';
 import './style.scss';
 
 export interface InfoProps {
-  nickname: string;
-  avatarUrl: string;
+  nickname?: string | undefined;
+  avatarUrl?: string | undefined;
   accumulatedPoints: number; // 累计积分
   checkInTime: string; // 本月打卡时长
   level: string; // 等级
@@ -20,7 +20,6 @@ export default () => {
   // 获取用户信息
   useDidShow(() => {
     Api.getUserInfoApi().then((res) => {
-      console.log(res);
       setUserInfo(res.data);
     });
   });
@@ -32,7 +31,7 @@ export default () => {
       });
     } else {
       Taro.navigateTo({
-        url: '/pages/info/index',
+        url: '/pages/my/info/index',
       });
     }
   };
@@ -40,16 +39,24 @@ export default () => {
   const handleLevel = () => {
     if(userInfo) {
       Taro.navigateTo({
-        url: `/pages/level/index?level=${userInfo?.level}`
+        url: `/pages/my/level/index?level=${userInfo?.level}`
       })
     }
   }
 
   const handleVerify = () => {
     Taro.navigateTo({
-      url: `/pages/verify/index?verified=${userInfo?.verified}`
-      // url: `/pages/verify/index?verified=${false}`
+      url: `/pages/my/verify/index?verified=${userInfo?.verified}`
+      // url: `/pages/my/verify/index?verified=${false}`
     })
+  }
+
+  const handleAttendanceRecord = () => {
+    if(userInfo) {
+      Taro.navigateTo({
+        url: '/pages/my/attendanceRecord/index'
+      })
+    }
   }
 
   return (
@@ -59,7 +66,7 @@ export default () => {
           <div onClick={handleClick}>
             <Avatar size="large" icon={userInfo?.avatarUrl || 'my'} />
           </div>
-          <div className="flex flex-col ml-10px">
+          <div className="flex flex-col ml-10px" onClick={handleClick}>
             <div className="flex flex-row items-center">
               <span className="text-18px mr-10px">
                 {userInfo ? userInfo.nickname : '去登录'}
@@ -88,7 +95,7 @@ export default () => {
           <span>实名认证</span>
           {userInfo?.verified ? null : <span>（未认证）</span>}
         </GridItem>
-        <GridItem>
+        <GridItem onClick={handleAttendanceRecord}>
           <span>
             <Icon name="refresh"></Icon>
           </span>
