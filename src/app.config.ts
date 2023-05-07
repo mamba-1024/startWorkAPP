@@ -40,7 +40,7 @@ export default defineAppConfig({
   },
   tabBar: {
     color: '#707070',
-    selectedColor: "#16a34a",
+    selectedColor: '#1677ff',
     backgroundColor: '#fff',
     list: [
       {
@@ -52,8 +52,8 @@ export default defineAppConfig({
       {
         pagePath: 'pages/tabBar/attendance/index',
         text: '打卡',
-        iconPath: './assets/image/attendance-bar3.png',
-        selectedIconPath: './assets/image/attendance-bar-selected3.png'
+        iconPath: './assets/image/attendance-bar.png',
+        selectedIconPath: './assets/image/attendance-bar-selected2.png'
       },
       {
         pagePath: 'pages/tabBar/my/index',

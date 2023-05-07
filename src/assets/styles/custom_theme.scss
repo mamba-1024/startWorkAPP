@@ -1,8 +1,8 @@
 // NutUI主题定制
 
 // Base
-$primary-color: #16a34a;
-$primary-color-end: #4ade80;
+$primary-color: #1677ff;
+$primary-color-end: #69c0ff;
 $help-color: #f5f5f5;
 $title-color: #1a1a1a;
 $title-color2: #666666;
@@ -23,7 +23,7 @@ $font-weight-bold: 400;
 $font-size-small: $font-size-1;
 $font-size-base: $font-size-2;
 $font-size-large: $font-size-3;
-$line-height-base: 1.5;
+$line-height-base: 1.8;
 $zindex-actionsheet: 10001;
 $body-background: #f6f6f6;
 $light-color: #f6f6f6;
@@ -97,10 +97,10 @@ $button-plain-background-color: #fff;
 $button-plain-background-color: $white;
 
 // Cell
-$cell-color: $title-color2;
-$cell-title-font: $font-size-2;
-$cell-title-desc-font: $font-size-1;
-$cell-desc-font: $font-size-2;
+$cell-color: $title-color;
+$cell-title-font: $font-size-3;
+$cell-title-desc-font: $font-size-2;
+$cell-desc-font: $font-size-3;
 $cell-desc-color: $disable-color;
 $cell-border-radius: 6px;
 $cell-group-title-padding: 0 10px;
@@ -110,9 +110,9 @@ $cell-group-title-line-height: 20px;
 $cell-group-background-color: $white;
 
 // Icon
-$icon-height: 20px;
+$icon-height: 24px;
 $icon-width: 20px;
-$icon-line-height: 20px;
+$icon-line-height: 24px;
 
 // Overlay
 $overlay-bg-color: rgba(0, 0, 0, 0.7);

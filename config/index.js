@@ -32,6 +32,11 @@ const config = {
     data: `@import "@nutui/nutui-react-taro/dist/styles/variables.scss";`,
   },
   mini: {
+    enableExtract: true,
+    miniCssExtractPluginOption: {
+      //忽略css文件引入顺序
+      ignoreOrder: true
+    },
     postcss: {
       pxtransform: {
         enable: true,

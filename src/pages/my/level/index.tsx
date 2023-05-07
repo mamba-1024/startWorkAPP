@@ -23,7 +23,7 @@ export default () => {
     <div>
       <div>
       {levelInfo?.levelList.map((ele) => (
-        <div className={`w-3/4 mx-auto text-center my-30px ${ele.name.includes(params.level) ? 'bg-yellow-200' : 'bg-green-200'} rounded-xl py-15px`}>
+        <div className={`w-3/4 mx-auto text-center my-30px ${ele.name.includes(params.level) ? 'bg-yellow-200' : 'bg-blue-200'} rounded-xl py-15px`}>
           <span className='mb-6px'>{ele.name}</span>
           <span>{ele.shortDesc}</span>
         </div>

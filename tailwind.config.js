@@ -1,6 +1,7 @@
 // windi.config.js
 
-const primaryColor = '#16a34a'
+const primaryColor = '#1677ff'
+
 
 export default {
   prefixer: false,
