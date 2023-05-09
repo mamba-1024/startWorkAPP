@@ -1,7 +1,8 @@
 page {
+  height: 100%;
   font-size: 14px;
   // color: #808080;
-  background-color: rgb(248 250 252);
+  background-color: #f5f5f5;
 
   // 去掉按钮右侧黑边
   .nut-button--primary {
@@ -10,5 +11,9 @@ page {
 
   .nut-cell {
     line-height: 26px;
+  }
+
+  .nut-input {
+    font-size: 16px;
   }
 }

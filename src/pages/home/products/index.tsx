@@ -32,7 +32,7 @@ class Index extends Component<any, any> {
   render() {
     const { products } = this.state;
     return (
-      <div className="py-8px px-12px bg-white  h-screen">
+      <div className="py-8px px-12px  h-screen">
         {products?.map((ele) => (
           <Card
             max={true}

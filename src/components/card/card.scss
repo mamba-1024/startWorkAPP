@@ -1,11 +1,20 @@
 .card-custom {
+  background-color: #fff;
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-bottom: 8px;
+  border-radius: 6px;
+
   .nut-card .nut-card__left {
-    height: 70px;
+    height: 104px;
 
     .h5-img {
-      width: 106px;
-      height: 68px;
+      height: 104px;
     }
+  }
+
+  .nut-card__right .nut-card__right__title {
+    font-weight: 500;
   }
 
   .nut-card .nut-card__right .nut-card__right__price,
@@ -28,11 +37,9 @@
 
 .card-custom-max {
   .nut-card .nut-card__left {
-    height: 102px;
-    width: 102px;
+    height: 104px;
     .h5-img {
-      width: 100px;
-      height: 100px;
+      height: 104px;
     }
   }
 }

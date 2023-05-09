@@ -40,11 +40,11 @@ class Index extends Component<any, any> {
   render() {
     const { mainUrl, products } = this.state;
     return (
-      <div className="py-8px px-12px bg-white  h-screen">
+      <div className="py-8px px-12px h-screen">
         {/* 主图 */}
         <div className="p">
           <img
-            className="w-full h-140px rounded-12px"
+            className="w-full h-160px rounded-12px"
             src={
               mainUrl ||
               'https://prototype.apicloud-system.com/canvas/1f00369a-9901-453b-9fa7-6a5b4d26987e.png'
@@ -83,6 +83,7 @@ class Index extends Component<any, any> {
             <span>关于我们</span>
           </Col>
         </Row>
+        <div className='mb-6px text-16px font-bold'>推荐商品</div>
         {products?.map((ele) => (
           <Card
             className="mb-20px"

@@ -84,15 +84,12 @@ const config = {
     },
   },
   alias: {
-    // '@/components': path.resolve(__dirname, '..', 'src/components'),
     '@/utils': path.resolve(__dirname, '..', 'src/utils'),
     '@/api': path.resolve(__dirname, '..', 'src/api'),
     '@/service': path.resolve(__dirname, '..', 'src/service'),
     '@/assets': path.resolve(__dirname, '..', 'src/assets'),
     '@/pages': path.resolve(__dirname, '..', 'src/pages'),
     '@/components': path.resolve(__dirname, '..', 'src/components'),
-    // '@/package': path.resolve(__dirname, '..', 'package.json'),
-    // '@/project': path.resolve(__dirname, '..', 'project.config.json'),
   },
 };
 

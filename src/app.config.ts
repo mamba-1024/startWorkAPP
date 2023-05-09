@@ -29,12 +29,13 @@ export default defineAppConfig({
         'info/index',
         'verify/index',
         'attendanceRecord/index',
+        'question/index'
       ],
     },
   ],
   window: {
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#fff',
+    navigationBarBackgroundColor: '#60A5FA',
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black'
   },

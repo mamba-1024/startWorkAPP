@@ -19,7 +19,9 @@ function getWeekChinese(num: number) {
 export default () => {
   const modelValue = new Date();
   // 月份
-  const [currentMonth, setCurrentMonth] = useState<string>(formatTime(modelValue, 'yyyy-MM'));
+  const [currentMonth, setCurrentMonth] = useState<string>(
+    formatTime(modelValue, 'yyyy-MM')
+  );
   const [show, setShow] = useState(false);
   const [attendanceRecord, setAttendanceRecord] = useState<RecordProps | null>(
     null
@@ -30,8 +32,8 @@ export default () => {
 
   const attendanceDayDetailInfos = useMemo(() => {
     return (
-      attendanceRecord?.attendanceDayInfoDTOS?.find(
-        (ele) => activeDate.endsWith(ele.localDate)
+      attendanceRecord?.attendanceDayInfoDTOS?.find((ele) =>
+        activeDate.endsWith(ele.localDate)
       )?.attendanceDayDetailInfos || []
     );
   }, [attendanceRecord, activeDate]);
@@ -51,26 +53,32 @@ export default () => {
   });
 
   const confirm = (values: (string | number)[]) => {
-    const date = values.join('-')
+    const date = values.join('-');
     setCurrentMonth(date);
     setShow(false);
-    setActiveDate(`${values[1]}-01`)
-    fetchAttendanceRecord(`${date}-01`)
+    setActiveDate(`${values[1]}-01`);
+    fetchAttendanceRecord(`${date}-01`);
   };
 
   const minDate = new Date('2022');
   const maxDate = new Date();
 
-  const week = getWeekChinese(new Date(activeDate).getDay())
+  const week = getWeekChinese(new Date(activeDate).getDay());
 
   return (
     <div>
-      <Cell className="justify-end items-center">
-        <span className="flex" onClick={() => setShow(true)}>
-          <Icon name="clock"></Icon>
-          <span className="ml-5px">{currentMonth}</span>
-        </span>
-        <DatePicker
+      <Cell
+        title="月份"
+        linkSlot={
+          <span className="flex" onClick={() => setShow(true)}>
+            <Icon name="clock"></Icon>
+            <span className="ml-5px">{currentMonth}</span>
+          </span>
+        }
+        className="justify-end items-center"
+      >
+      </Cell>
+      <DatePicker
           modelValue={modelValue}
           title="日期选择"
           visible={show}
@@ -81,13 +89,13 @@ export default () => {
           onCloseDatePicker={() => setShow(false)}
           onConfirmDatePicker={(values) => confirm(values)}
         />
-      </Cell>
-      {attendanceRecord?.shiftDurationMap && Object.keys(attendanceRecord?.shiftDurationMap).map((ele) => (
-        <Cell className="justify-between items-center">
-          <span>{ele}累计时长</span>
-          <span>{attendanceRecord?.shiftDurationMap?.[ele]}</span>
-        </Cell>
-      ))}
+      {attendanceRecord?.shiftDurationMap &&
+        Object.keys(attendanceRecord?.shiftDurationMap).map((ele) => (
+          <Cell className="justify-between items-center">
+            <span>{ele}累计时长</span>
+            <span>{attendanceRecord?.shiftDurationMap?.[ele]}</span>
+          </Cell>
+        ))}
       <div>
         {attendanceRecord?.attendanceDayInfoDTOS ? (
           <Calendar
@@ -106,19 +114,25 @@ export default () => {
         </span>
       </Cell>
       <Cell className="flex flex-col">
-        {attendanceDayDetailInfos?.map((info) => (
-          <div className="w-full">
-            <div className="text-16px text-black mb-6px">{info?.shiftName}</div>
-            <div className="flex justify-between items-center">
-              <span>时长</span>
-              <span>{info?.duration}</span>
+        {attendanceDayDetailInfos?.length ? (
+          attendanceDayDetailInfos?.map((info) => (
+            <div className="w-full">
+              <div className="text-16px text-black mb-6px">
+                {info?.shiftName}
+              </div>
+              <div className="flex justify-between items-center">
+                <span>时长</span>
+                <span>{info?.duration}</span>
+              </div>
+              <div className="flex justify-between items-center my-6px">
+                <span>时间</span>
+                <span>{info?.showTime}</span>
+              </div>
             </div>
-            <div className="flex justify-between items-center my-6px">
-              <span>时间</span>
-              <span>{info?.showTime}</span>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <span>暂无打卡记录</span>
+        )}
       </Cell>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Avatar, CellGroup, Cell, Icon } from '@nutui/nutui-react-taro';
+import { Avatar, CellGroup, Cell, Icon, Rate } from '@nutui/nutui-react-taro';
 import Taro, { useDidShow } from '@tarojs/taro';
 import Api from '@/api';
 import './style.scss';
@@ -60,72 +60,107 @@ export default () => {
   };
 
   return (
-    <div>
-      <div className='bg-gradient-to-br from-blue-300 from-10% via-blue-400 via-40% to-blue-200 to-90%'>
-        <div className="h-120px w-full"></div>
+    <div className="my-page">
+      <div className="bg-gradient-to-b from-blue-400 from-10% to-blue-200">
+        <div className="h-40px w-full"></div>
         <div className="h-100px mb-6px">
-          <div
-            className="flex flex-row items-center pl-40px"
-            onClick={handleClick}
-          >
-            <div>
+          <div className="flex flex-row items-center pl-30px">
+            <div onClick={handleClick}>
               <Avatar
                 className="overflow-hidden"
-                shape="square"
                 size="large"
                 icon={userInfo?.avatarUrl || 'my'}
               />
             </div>
             <div className="flex flex-col ml-20px">
-              <div className="flex flex-row items-center mb-6px">
-                <span className="text-22px mr-10px">
+              <div className="flex flex-row items-center mb-10px">
+                <span className="text-22px mr-10px" onClick={handleClick}>
                   {userInfo ? userInfo.nickname : '去登录'}
                 </span>
                 {userInfo ? (
-                  <span className="text-16px">{userInfo.level} 星</span>
+                  <div className="star-wrap">
+                    <Rate
+                      activeColor="#FFC800"
+                      modelValue={userInfo?.level}
+                      iconSize="16"
+                      count={4}
+                      spacing={6}
+                      readonly
+                    />
+                    <div className="start-modal" onClick={handleLevel}></div>
+                  </div>
                 ) : null}
               </div>
               {userInfo ? (
-                <span className="text-16px text-text">
-                  {userInfo.phoneNumber}
+                <span className="text-16px">
+                  手机号：{userInfo.phoneNumber}
                 </span>
               ) : null}
             </div>
           </div>
         </div>
       </div>
-      <Cell
-        iconSlot={<Icon name="locationg3" color='#1677ff'></Icon>}
-        title="本月打卡（时）"
-        desc={userInfo?.checkInTime}
-        className='text-18px'
-      />
 
       <CellGroup>
         <Cell
-          title="累计积分"
-          iconSlot={<Icon name="notice" color="#64b578"></Icon>}
-          subTitle={userInfo?.accumulatedPoints.toString()}
-          isLink
-          onClick={handleLevel}
-          className='text-18px'
+          iconSlot={
+            <Icon name="locationg3" color="#1677ff" className="mr-10px"></Icon>
+          }
+          title="本月打卡（时）"
+          desc={userInfo?.checkInTime}
+          className="text-18px"
         />
         <Cell
-          title="实名认证"
-          iconSlot={<Icon name="my" color="#fa2c19"></Icon>}
-          subTitle={userInfo?.verified ? '已认证' : '未认证'}
-          isLink
-          onClick={handleVerify}
-          className='text-18px'
+          title="累计积分"
+          iconSlot={
+            <Icon name="notice" color="#64b578" className="mr-10px"></Icon>
+          }
+          desc={userInfo?.accumulatedPoints.toString()}
+          className="text-18px"
         />
       </CellGroup>
       <Cell
+        title="实名认证"
+        iconSlot={<Icon name="my" color="#52c41a" className="mr-10px"></Icon>}
+        isLink
+        onClick={handleVerify}
+        className="text-18px"
+      />
+      <Cell
         title="考勤记录"
-        iconSlot={<Icon name="footprint" color='#f3812e'></Icon>}
+        iconSlot={
+          <Icon name="footprint" color="#f3812e" className="mr-10px"></Icon>
+        }
         isLink
         onClick={handleAttendanceRecord}
-        className='text-18px'
+        className="text-18px"
       />
+      <CellGroup>
+        <Cell
+          title="联系客服"
+          iconSlot={
+            <Icon name="message" color="#ffc069" className="mr-10px"></Icon>
+          }
+          // subTitle={userInfo?.accumulatedPoints.toString()}
+          isLink
+          onClick={() => {
+            Taro.navigateTo({ url: '/pages/home/aboutUs/index' });
+          }}
+          className="text-18px"
+        />
+        <Cell
+          title="常见问题"
+          iconSlot={
+            <Icon name="ask2" color="#f5222d" className="mr-10px"></Icon>
+          }
+          // subTitle={userInfo?.verified ? '已认证' : '未认证'}
+          isLink
+          onClick={() => {
+            Taro.navigateTo({ url: '/pages/my/question/index' });
+          }}
+          className="text-18px"
+        />
+      </CellGroup>
     </div>
   );
 };

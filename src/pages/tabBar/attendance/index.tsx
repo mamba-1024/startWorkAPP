@@ -59,9 +59,9 @@ export default () => {
   };
 
   const handleClick = () => {
-    if(!canCheckIn) {
-      setShowBottom(true)
-      return
+    if (!canCheckIn) {
+      setShowBottom(true);
+      return;
     }
     const params = {
       attendanceTime: formatTime(new Date(), 'yyyy-MM-dd HH:mm:ss'),
@@ -76,7 +76,7 @@ export default () => {
       });
       // 刷新数据
       gitInit();
-      setCanCheckIn(false)
+      setCanCheckIn(false);
     });
   };
 
@@ -101,45 +101,57 @@ export default () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center h-full">
       <ActionSheet
         visible={isVisible}
         menuItems={menuItems}
         onChoose={chooseItem}
         onCancel={() => setIsVisible(false)}
+        cancelTxt="取消"
       />
+      <Cell className="justify-between items-center">
+        <span className="flex">
+          <Icon name="date" color="#4096ff"></Icon>
+          <span className="ml-5px">日期</span>
+        </span>
+        <div className="text-right">
+          <span>{formatTime(new Date(), 'yyyy-MM-dd')}</span>
+        </div>
+      </Cell>
       <Cell
         className="justify-between items-center"
         isLink
         onClick={() => setIsVisible(!isVisible)}
       >
         <span className="flex">
-          <Icon name="clock"></Icon>
+          <Icon name="clock" color="#4096ff"></Icon>
           <span className="ml-5px">班次</span>
         </span>
         <div className="text-right">
-          <span>当前班次 {formatTime(new Date(), 'yyyy-MM-dd')}</span>
+          <span>当前班次</span>
           <div>
             {val?.shiftName} {val?.startTime} - {val?.endTime}
           </div>
         </div>
       </Cell>
-      <Cell className="h-200px justify-center items-center">
-        <div
-          onClick={handleClick}
-          className="h-120px w-120px bg-blue-500 rounded-full flex  flex-col justify-center items-center text-white"
-        >
-          <span>{renderBtn(attendanceRecords, val).name}</span>
-          <span>{`${hours}:${minutes}:${seconds}`}</span>
-        </div>
-      </Cell>
-      <div className="px-10px">
-        <span className="text-16px mb-8px">打卡说明：</span>
-        <div className='text-text'>
-          1.普通班次07:00-17:00，早于7:00打卡，按照7:00开始计算，晚于17:00打卡，按照17:00计算。午饭时间0.5h，则普通班次一天打卡最多9.5h。
-        </div>
-        <div className='text-text'>
-          2.加班班次17:30-20:00，早于17:30打卡，按照17:30开始计算，晚于20:00打卡，按照20:00计算，加班班次一天最多打卡2.5h。
+      <div className="w-full flex flex-col flex-1">
+        <Cell className="justify-center items-center flex-1">
+          <div
+            onClick={handleClick}
+            className="h-140px w-140px bg-blue-500 rounded-full flex  flex-col justify-center items-center text-white"
+          >
+            <span>{renderBtn(attendanceRecords, val).name}</span>
+            <span>{`${hours}:${minutes}:${seconds}`}</span>
+          </div>
+        </Cell>
+        <div className="px-10px mt-20px pb-10px">
+          <span className="text-16px mb-8px">打卡说明：</span>
+          <div className="text-text">
+            1.普通班次07:00-17:00，早于7:00打卡，按照7:00开始计算，晚于17:00打卡，按照17:00计算。午饭时间0.5h，则普通班次一天打卡最多9.5h。
+          </div>
+          <div className="text-text">
+            2.加班班次17:30-20:00，早于17:30打卡，按照17:30开始计算，晚于20:00打卡，按照20:00计算，加班班次一天最多打卡2.5h。
+          </div>
         </div>
       </div>
       <Popup
@@ -149,17 +161,25 @@ export default () => {
         round={true}
         closeOnClickOverlay={false}
       >
-        <div className='h-full flex flex-col justify-between items-center'>
+        <div className="h-full flex flex-col justify-between items-center">
           <div>
-          <h2>安全须知</h2>
-          <div >
-            <div>内容 ......</div>
-            <div>内容 ......</div>
+            <h2>安全须知</h2>
+            <div>
+              <div>内容 ......</div>
+              <div>内容 ......</div>
+            </div>
           </div>
 
-          </div>
-
-        <Button className='w-3/5' type="primary" onClick={() => {setShowBottom(false); setCanCheckIn(true)}}>我已知晓</Button>
+          <Button
+            className="w-3/5"
+            type="primary"
+            onClick={() => {
+              setShowBottom(false);
+              setCanCheckIn(true);
+            }}
+          >
+            我已知晓
+          </Button>
         </div>
       </Popup>
     </div>

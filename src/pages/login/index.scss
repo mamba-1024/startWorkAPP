@@ -8,19 +8,26 @@
 
 .index {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 24rpx;
-  margin-bottom: 30px;
+  margin-bottom: 100px;
 }
 
 .title {
+  width: 70%;
   display: block;
   margin: 20px 0;
-  font-weight: 600;
+  font-size: 14px;
 }
 
 .btn {
   display: block;
-  width: 200px;
+  width: 70%;
+  background-color: #1677ff;
+  color: #fff;
+  border-width: 0;
+  font-size: 12px;
+  border-radius: 20px;
 }

@@ -4,6 +4,7 @@ import { Button } from '@tarojs/components';
 import './index.scss';
 import Api from '@/api';
 import { setToken } from '@/utils';
+import './index.scss'
 
 export default () => {
   const onGetPhoneNumber = ({ detail }) => {
@@ -38,10 +39,12 @@ export default () => {
   return (
     <div className="nutui-react-demo">
       <div className="index">
+        <div className='title'>
+        尊敬的用户，您还没有登陆，无法访问私有数据，建议您:
+        </div>
         <Button
-          type="primary"
           openType="getPhoneNumber"
-          className="btn"
+          className="btn h5-button nut-button nut-button--primary nut-button--normal nut-button--round nut-button--block"
           onGetPhoneNumber={onGetPhoneNumber}
         >
           手机号授权登录

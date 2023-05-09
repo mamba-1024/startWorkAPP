@@ -57,7 +57,11 @@ export default () => {
       if(res.data) {
         Taro.showToast({
           title: '保存成功',
-          icon: 'success'
+          icon: 'success',
+          duration: 1000,
+          success: () => {
+            Taro.navigateBack()
+          }
         })
       }
     });
