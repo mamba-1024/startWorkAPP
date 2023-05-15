@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 
 interface LevelProps {
-  levelList: { name: string; shortDesc: string }[];
+  levelList: { name: string; desc: string }[];
   remark: string;
 }
 
@@ -23,14 +23,14 @@ export default () => {
     <div>
       <div>
       {levelInfo?.levelList.map((ele) => (
-        <div className={`w-3/4 mx-auto text-center my-30px ${ele.name.includes(params.level) ? 'bg-yellow-200' : 'bg-blue-200'} rounded-xl py-15px`}>
-          <span className='mb-6px'>{ele.name}</span>
-          <span>{ele.shortDesc}</span>
+        <div className={`w-3/4 mx-auto h-80px my-10px ${ele.name.includes(params.level) ? 'bg-yellow-200' : 'bg-blue-200'} rounded-xl py-15px`}>
+          <span className='mb-6px pl-20px'>{ele.name}</span>
+          {/* <span>{ele.desc}</span> */}
         </div>
       ))}
       </div>
 
-      <span className='px-6px'>备注：{levelInfo?.remark}</span>
+      {/* <span className='px-6px'>备注：{levelInfo?.remark}</span> */}
     </div>
   );
 };

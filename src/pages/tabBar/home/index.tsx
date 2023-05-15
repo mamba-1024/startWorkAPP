@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Row, Col } from '@nutui/nutui-react-taro';
+import { Row, Col, Swiper, SwiperItem } from '@nutui/nutui-react-taro';
 import Api from '@/api';
 import productIcon from '@/assets/image/productIcon.png';
 import messageIcon from '@/assets/image/messageIcon.png';
@@ -11,25 +11,25 @@ class Index extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      mainUrl: '',
+      // mainUrl: '',
+      mainUrls: [],
       products: [],
     };
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {}
 
   componentDidShow() {
     Api.getHomeInfoApi().then((res) => {
       this.setState({
-        mainUrl: res.data.mainUrl,
+        mainUrls: res.data.mainUrls,
         products: res.data.products.map((ele) => ({
           imgUrl: ele.productMainUrl,
           title: ele.title,
           shortDesc: ele.shortDesc,
-          id: ele.id
+          id: ele.id,
         })),
       });
     });
@@ -38,20 +38,38 @@ class Index extends Component<any, any> {
   componentDidHide() {}
 
   render() {
-    const { mainUrl, products } = this.state;
+    const { mainUrls, products } = this.state;
     return (
       <div className="py-8px px-12px h-screen">
         {/* 主图 */}
-        <div className="p">
-          <img
-            className="w-full h-160px rounded-12px"
-            src={
-              mainUrl ||
-              'https://prototype.apicloud-system.com/canvas/1f00369a-9901-453b-9fa7-6a5b4d26987e.png'
-            }
-          />
+
+        <div>
+          <Swiper
+            className="h-160px"
+            autoPlay="3000"
+            initPage={0}
+            paginationColor="#1677ff"
+            paginationVisible
+          >
+            {mainUrls.map((url) => (
+              <SwiperItem>
+                <img
+                  className="w-full h-160px"
+                  src={
+                    url ||
+                    'https://prototype.apicloud-system.com/canvas/1f00369a-9901-453b-9fa7-6a5b4d26987e.png'
+                  }
+                />
+              </SwiperItem>
+            ))}
+          </Swiper>
         </div>
-        <Row type="flex" justify="space-around" gutter="8" className="mt-16px">
+        <Row
+          type="flex"
+          justify="space-around"
+          gutter="8"
+          className="my-16px bg-white rounded-6px pt-12px"
+        >
           <Col span="6" className="flex flex-col justify-center items-center">
             <img
               className="w-44px h-44px"
@@ -83,9 +101,10 @@ class Index extends Component<any, any> {
             <span>关于我们</span>
           </Col>
         </Row>
-        <div className='mb-6px text-16px font-bold'>推荐商品</div>
+        <div className="mb-6px text-16px font-bold">推荐商品</div>
         {products?.map((ele) => (
           <Card
+            type="product"
             className="mb-20px"
             imgUrl={ele.imgUrl}
             title={ele.title}

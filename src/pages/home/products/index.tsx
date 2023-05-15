@@ -35,6 +35,7 @@ class Index extends Component<any, any> {
       <div className="py-8px px-12px  h-screen">
         {products?.map((ele) => (
           <Card
+            type='product'
             max={true}
             className="mb-20px"
             imgUrl={ele.imgUrl}

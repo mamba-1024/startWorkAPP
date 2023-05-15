@@ -19,14 +19,16 @@ const customInterceptor = (chain: any) => {
                 } else {
                     // 请求接口错误提示，可通过参数中加入 openErrTips: false 关闭
                     // if (requestParams.openErrTips && result.message) Taro.showToast({ title: result.message, icon: 'none' })
-                    if (result.message) Taro.showToast({ title: result.message, icon: 'none' })
+                    if (result.message) Taro.showToast({ title: result.message, icon: 'none', mask: true })
                     // 登录过期或未登录 需要与后端共同定义
                     if (result.code === 401) {
                         // 跳转登陆 清空用户信息等 处理
                         removeToken();
-
-                        Taro.showToast({ title: '未登录，请先登陆', icon: 'none' })
-                        Taro.navigateTo({ url: '/pages/login/index' })
+                        Taro.showToast({ title: '您未登录，请先登陆', icon: 'none', mask: true, duration: 1000 }).then(() => {
+                            setTimeout(() => {
+                                Taro.navigateTo({ url: '/pages/login/index' })
+                            }, 1500)
+                        })
                     }
                     // result.success = false
                     // 其它错误
@@ -43,7 +45,7 @@ const customInterceptor = (chain: any) => {
                 return Promise.reject('服务器不理解请求的语法')
 
             case HTTP_STATUS.AUTHENTICATE: // 401
-                Taro.showToast({ title: '未登录，请先登陆', icon: 'none', duration: 1500 }).then(() => {
+                Taro.showToast({ title: '您未登录，请先登陆', icon: 'none', mask: true, duration: 1000 }).then(() => {
                     setTimeout(() => {
                         Taro.navigateTo({ url: '/pages/login/index' })
                     }, 1500)

@@ -11,12 +11,20 @@ export const getHomeInfoApi = () => {
   return request.get('/index/info')
 }
 /**
-* 产品详情
+* 产品
 * /index/product
 * @returns
 */
 export const getProductApi = () => {
   return request.get('/index/product')
+}
+/**
+* 产品详情
+* /index/product/${id}
+* @returns
+*/
+export const getProductByIdApi = (id) => {
+  return request.get(`/index/product/${id}`)
 }
 /**
 * 企业动态

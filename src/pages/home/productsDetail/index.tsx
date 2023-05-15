@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import Api from '@/api';
 import Taro from '@tarojs/taro';
-import { RichText } from '@tarojs/components'
+import { RichText } from '@tarojs/components';
 
 class Index extends Component<any, any> {
   constructor(props: any) {
@@ -12,14 +12,20 @@ class Index extends Component<any, any> {
   }
 
   componentDidMount() {
-    const { id }: any = Taro.getCurrentInstance().router?.params || {};
-    Api.getActionByIdApi(id).then((res) => {
-      console.log(res);
-
-      this.setState({
-        htmlContent: res.data.htmlContent
+    const { id, type }: any = Taro.getCurrentInstance().router?.params || {};
+    if (type === 'product') {
+      Api.getProductByIdApi(id).then((res) => {
+        this.setState({
+          htmlContent: res.data.htmlContent,
+        });
       });
-    });
+    } else {
+      Api.getActionByIdApi(id).then((res) => {
+        this.setState({
+          htmlContent: res.data.htmlContent,
+        });
+      });
+    }
   }
 
   componentWillUnmount() {}
@@ -32,7 +38,7 @@ class Index extends Component<any, any> {
     const { htmlContent } = this.state;
     return (
       <div className="py-8px px-12px bg-white  h-screen">
-        <RichText nodes={htmlContent}/>
+        <RichText nodes={htmlContent} />
       </div>
     );
   }

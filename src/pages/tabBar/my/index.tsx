@@ -75,7 +75,7 @@ export default () => {
             <div className="flex flex-col ml-20px">
               <div className="flex flex-row items-center mb-10px">
                 <span className="text-22px mr-10px" onClick={handleClick}>
-                  {userInfo ? userInfo.nickname : '去登录'}
+                  {userInfo ? userInfo.nickname : '点击登录'}
                 </span>
                 {userInfo ? (
                   <div className="star-wrap">
@@ -83,7 +83,7 @@ export default () => {
                       activeColor="#FFC800"
                       modelValue={userInfo?.level}
                       iconSize="16"
-                      count={4}
+                      count={3}
                       spacing={6}
                       readonly
                     />
@@ -137,15 +137,16 @@ export default () => {
       />
       <CellGroup>
         <Cell
-          title="联系客服"
+          title="联系管理员"
           iconSlot={
             <Icon name="message" color="#ffc069" className="mr-10px"></Icon>
           }
           // subTitle={userInfo?.accumulatedPoints.toString()}
-          isLink
-          onClick={() => {
-            Taro.navigateTo({ url: '/pages/home/aboutUs/index' });
-          }}
+          linkSlot={<span className='text-12px text-text text-center h-26px leading-26px'>18969043989（微信同号）</span>}
+          // isLink
+          // onClick={() => {
+          //   Taro.navigateTo({ url: '/pages/home/aboutUs/index' });
+          // }}
           className="text-18px"
         />
         <Cell

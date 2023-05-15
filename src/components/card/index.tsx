@@ -9,10 +9,11 @@ interface Props {
   shortDesc: string;
   max?: boolean;
   className?: string;
+  type?: 'product' | 'action';
 }
 
 export default (props: Props) => {
-  const {id, imgUrl, title, shortDesc, max = false, className } = props;
+  const {id, imgUrl, title, shortDesc, max = false, className, type } = props;
 
   const Des = () => {
     return <div className="desc">{shortDesc}</div>;
@@ -21,7 +22,7 @@ export default (props: Props) => {
   const handleDetail = () => {
     if(id) {
       Taro.navigateTo({
-        url: `/pages/home/productsDetail/index?id=${id}`
+        url: `/pages/home/productsDetail/index?id=${id}&type=${type}`
       })
     }
   }
