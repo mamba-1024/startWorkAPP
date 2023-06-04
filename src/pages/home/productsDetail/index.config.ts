@@ -1,3 +1,3 @@
 export default definePageConfig({
-  navigationBarTitleText: '产品详情'
+  navigationBarTitleText: '详情'
 })

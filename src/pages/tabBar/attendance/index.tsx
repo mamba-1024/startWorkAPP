@@ -22,10 +22,13 @@ interface ItemType {
 export default () => {
   const [isVisible, setIsVisible] = useState(false);
   const [menuItems, setMenuItems] = useState<ItemType[]>([]);
-  const [val, setVal] = useState<ItemType | null>(null); // 班次
+  // 班次
+  const [workShift, setWorkShift] = useState<ItemType | null>(null);
   const [time, setTime] = useState(new Date());
   const [attendanceRecords, setAttendanceRecords] = useState<any[]>([]);
+  // 安全须知倒计时弹窗
   const [showBottom, setShowBottom] = useState<boolean>(false);
+  // 已经确认了安全须知
   const [canCheckIn, setCanCheckIn] = useState<boolean>(false);
   const [countDown, setCountDown] = useState<number>(6);
   const [visible, setVisible] = useState<boolean>(false);
@@ -65,8 +68,8 @@ export default () => {
           []
       );
       setAttendanceRecords(res?.data?.attendanceRecords || []);
-      if (!val) {
-        setVal(res.data?.workShifts[0]);
+      if (!workShift) {
+        setWorkShift(res.data?.workShifts[0]);
       }
       setSeasonalName(res.data?.seasonalName);
     });
@@ -78,18 +81,18 @@ export default () => {
 
   const chooseItem = (itemParams: any) => {
     setIsVisible(false);
-    setVal(itemParams);
+    setWorkShift(itemParams);
   };
 
   // 打卡
   const attendanceAction = () => {
-    console.log('打开逻辑请求')
+    console.log('打开逻辑请求');
     const params = {
       attendanceTime: formatTime(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-      punchType: renderBtn(attendanceRecords, val).punchType, // 0 上班；1 下班
-      workShiftId: val?.id,
+      punchType: renderBtn(attendanceRecords, workShift).punchType, // 0 上班；1 下班
+      workShiftId: workShift?.id,
     };
-    
+
     Api.doAttendanceApi(params).then(() => {
       Taro.showToast({
         title: '打卡成功',
@@ -102,9 +105,9 @@ export default () => {
   };
 
   const handleClick = () => {
-    console.log('点击打卡')
+    console.log('点击打卡');
     // 如果已经打卡下班，不能重复打卡
-    const punchType = renderBtn(attendanceRecords, val).punchType;
+    const punchType = renderBtn(attendanceRecords, workShift).punchType;
     if (punchType === 2) {
       Taro.showToast({
         title: '已打卡',
@@ -113,16 +116,21 @@ export default () => {
       return;
     }
 
-    // 普通班次需要弹窗
-    if (val?.id === 1 && !canCheckIn) {
+    // 普通班次上班打卡需要弹窗
+    if (
+      (workShift?.id === 1 || workShift?.id === 3) &&
+      punchType === 0 &&
+      !canCheckIn
+    ) {
       setShowBottom(true);
       return;
     }
     // 当前的下班打卡是否小于约定的下班时间
-    if (renderBtn(attendanceRecords, val).punchType === 1) {
-      console.log('提前打卡判断逻辑')
+    if (renderBtn(attendanceRecords, workShift).punchType === 1) {
+      console.log('提前打卡判断逻辑');
       // 截止时间
-      const endTime = formatTime(new Date(), 'yyyy-MM-dd') + ' ' + val?.endTime;
+      const endTime =
+        formatTime(new Date(), 'yyyy-MM-dd') + ' ' + workShift?.endTime;
       if (new Date().valueOf() < new Date(endTime).valueOf()) {
         // 早退打卡确认
         setVisible(true);
@@ -202,7 +210,8 @@ export default () => {
         linkSlot={
           <div className="flex flex-row justify-end items-center">
             <div>
-              {val?.shiftName} {val?.startTime} - {val?.endTime}
+              {workShift?.shiftName} {workShift?.startTime} -{' '}
+              {workShift?.endTime}
             </div>
             <Icon name="right"></Icon>
           </div>
@@ -214,7 +223,7 @@ export default () => {
             onClick={handleClick}
             className="h-140px w-140px bg-blue-500 rounded-full flex  flex-col justify-center items-center text-white"
           >
-            <span>{renderBtn(attendanceRecords, val).name}</span>
+            <span>{renderBtn(attendanceRecords, workShift).name}</span>
             <span>{`${hours}:${minutes}:${seconds}`}</span>
           </div>
         </Cell>

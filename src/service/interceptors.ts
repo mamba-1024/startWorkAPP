@@ -7,6 +7,8 @@ const customInterceptor = (chain: any) => {
     const requestParams = chain.requestParams
 
     return chain.proceed(requestParams).then((res: any) => {
+        // 跳转登录页
+        const notLogin = requestParams.data?.notLogin
         // 清除 loading
         if (requestParams.loading) Taro.hideLoading()
         switch (res.statusCode) {
@@ -24,10 +26,13 @@ const customInterceptor = (chain: any) => {
                     if (result.code === 401) {
                         // 跳转登陆 清空用户信息等 处理
                         removeToken();
+
                         Taro.showToast({ title: '您未登录，请先登陆', icon: 'none', mask: true, duration: 1000 }).then(() => {
-                            setTimeout(() => {
-                                Taro.navigateTo({ url: '/pages/login/index' })
-                            }, 1500)
+                            if (!notLogin) {
+                                setTimeout(() => {
+                                    Taro.navigateTo({ url: '/pages/login/index' })
+                                }, 1500)
+                            }
                         })
                     }
                     // result.success = false
@@ -46,9 +51,11 @@ const customInterceptor = (chain: any) => {
 
             case HTTP_STATUS.AUTHENTICATE: // 401
                 Taro.showToast({ title: '您未登录，请先登陆', icon: 'none', mask: true, duration: 1000 }).then(() => {
-                    setTimeout(() => {
-                        Taro.navigateTo({ url: '/pages/login/index' })
-                    }, 1500)
+                    if (!notLogin) {
+                        setTimeout(() => {
+                            Taro.navigateTo({ url: '/pages/login/index' })
+                        }, 1500)
+                    }
                 })
                 return Promise.reject('请求要求身份验证。')
 

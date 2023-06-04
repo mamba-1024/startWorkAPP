@@ -19,7 +19,7 @@ export default () => {
 
   // 获取用户信息
   useDidShow(() => {
-    Api.getUserInfoApi().then((res) => {
+    Api.getUserInfoApi({ notLogin: true }).then((res) => {
       setUserInfo(res.data);
     });
   });
@@ -45,16 +45,26 @@ export default () => {
   };
 
   const handleVerify = () => {
-    Taro.navigateTo({
-      url: `/pages/my/verify/index?verified=${userInfo?.verified}`,
-      // url: `/pages/my/verify/index?verified=${false}`
-    });
+    if (userInfo) {
+      Taro.navigateTo({
+        url: `/pages/my/verify/index?verified=${userInfo?.verified}`,
+        // url: `/pages/my/verify/index?verified=${false}`
+      });
+    } else {
+      Taro.navigateTo({
+        url: '/pages/login/index',
+      });
+    }
   };
 
   const handleAttendanceRecord = () => {
     if (userInfo) {
       Taro.navigateTo({
         url: '/pages/my/attendanceRecord/index',
+      });
+    } else {
+      Taro.navigateTo({
+        url: '/pages/login/index',
       });
     }
   };
@@ -142,7 +152,11 @@ export default () => {
             <Icon name="message" color="#ffc069" className="mr-10px"></Icon>
           }
           // subTitle={userInfo?.accumulatedPoints.toString()}
-          linkSlot={<span className='text-12px text-text text-center h-26px leading-26px'>18969043989（微信同号）</span>}
+          linkSlot={
+            <span className="text-12px text-text text-center h-26px leading-26px">
+              18969043989（微信同号）
+            </span>
+          }
           // isLink
           // onClick={() => {
           //   Taro.navigateTo({ url: '/pages/home/aboutUs/index' });

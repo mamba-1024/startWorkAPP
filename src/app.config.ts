@@ -4,7 +4,9 @@ export default defineAppConfig({
     'pages/tabBar/home/index',
     'pages/tabBar/attendance/index',
     'pages/tabBar/my/index',
-    'pages/login/index'
+    'pages/login/index',
+    'pages/agreement/index',
+    'pages/privacy/index'
   ],
   subPackages: [
     {
