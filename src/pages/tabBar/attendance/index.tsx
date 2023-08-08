@@ -11,7 +11,7 @@ import {
   CellGroup,
 } from '@nutui/nutui-react-taro';
 import { ScrollView } from '@tarojs/components';
-import { formatTime } from '@/utils/formatTime';
+import { formatTime, formatTimeIOS } from '@/utils/formatTime';
 
 interface ItemType {
   id?: number;
@@ -131,7 +131,7 @@ export default () => {
       // 截止时间
       const endTime =
         formatTime(new Date(), 'yyyy-MM-dd') + ' ' + workShift?.endTime;
-      if (new Date().valueOf() < new Date(endTime).valueOf()) {
+      if (new Date().valueOf() < new Date(formatTimeIOS(endTime)).valueOf()) {
         // 早退打卡确认
         setVisible(true);
         return;

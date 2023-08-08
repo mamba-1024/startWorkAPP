@@ -39,3 +39,10 @@ export function formatTime(time, format) {
 
   return format;
 }
+
+/**
+ * @description 解决iOS时间格式bug，将yyyy-MM-dd转为yyyy/MM/dd
+ */
+export function formatTimeIOS(time) {
+  return time.replace(/-/g, '/');
+}
